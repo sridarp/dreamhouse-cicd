@@ -1,4 +1,6 @@
-/* This is class level comment */
+/* This is class level comment
+    This is for test.
+*/
 public with sharing class PagedResult {
     @AuraEnabled
     public Integer pageSize { get; set; }
