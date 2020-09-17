@@ -83,8 +83,8 @@ jobs:
               run: 'sfdx force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
 
             # Create scratch org
-            # name: 'Create scratch org'
-            #  run: 'sfdx force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1'
+            - name: 'Create scratch org'
+              run: 'sfdx force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1'
 
             # Deploy source to scratch org
             - name: 'Push source to scratch org'
