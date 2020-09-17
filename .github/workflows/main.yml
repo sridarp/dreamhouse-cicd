@@ -76,15 +76,15 @@ jobs:
             # Store secret for dev hub
             - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
               shell: bash
-              run: 'echo force://PlatformCLI::5Aep861AW95fpOig3huOjELReb_8F.NvaG4Uz7i3Vrr07hhXXzR4ad2zUGHVK4XWznU_BJkT394HpsA1Odk4g6E@site-dream-8745-dev-ed.cs22.my.salesforce.com/ > ./DEVHUB_SFDX_URL.txt'
+              run: 'echo force://PlatformCLI::5Aep861d1G_LVSxTq3yHYGFIoWbeHuKtPuSJA3qljEjHwTDqfugSskiQIqbPQvdHhNTLPZTRthoxG5QT6XZsPrU@tavantvolta-dev-ed.my.salesforce.com > ./DEVHUB_SFDX_URL.txt'
 
             # Authenticate dev hub
             - name: 'Authenticate Dev Hub'
               run: 'sfdx force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
 
             # Create scratch org
-            # name: 'Create scratch org'
-            #  run: 'sfdx force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1'
+            - name: 'Create scratch org'
+              run: 'sfdx force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1'
 
             # Deploy source to scratch org
             - name: 'Push source to scratch org'
