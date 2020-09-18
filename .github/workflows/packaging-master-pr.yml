@@ -44,14 +44,14 @@ jobs:
                   json=$(sfdx force:package:create --name dreamhouse_volta --description "Volta Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername sandeep.sankaye@tavant.voltapoc)
                   json=$(sfdx force:package:version:create -p dreamhouse_volta -d force-app --wait 10 -v sandeep.sankaye@tavant.voltapoc)
                   echo $json
-                 # status=$(echo $json | jq '.status')
-                 #if [ $status == "0" ]; then
-                 #     packageVersionId=$(echo $json | jq -r '.result.SubscriberPackageVersionId')
-                 #     echo "::set-output name=packageVersionId::$packageVersionId"
-                 # else
-                 #     echo "sfdx force:package:version:create failed"
-                 # fi
-                 # exit $status
+                  status=$(echo $json | jq '.status')
+                    if [ $status == "0" ]; then
+                      packageVersionId=$(echo $json | jq -r '.result.SubscriberPackageVersionId')
+                      echo "::set-output name=packageVersionId::$packageVersionId"
+                    else
+                      echo "sfdx force:package:version:create failed"
+                    fi
+                    exit $status
 
             # Wait for package replication
             - name: Wait for package replication
