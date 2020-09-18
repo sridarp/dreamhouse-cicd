@@ -8,7 +8,9 @@
             "versionNumber": "0.1.1.NEXT"
         }
     ],
-    "namespace": "",
+     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "49.0"
-}
+    "sourceApiVersion": "49.0",
+    "packageAliases": {
+        "dreamhouse_volta": "0Ho4W000000PB0XSAW"
+    }
