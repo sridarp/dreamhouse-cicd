@@ -3,8 +3,8 @@ name: Packaging Master PR
 
 # Workflow starts when receiving custom event sent by CI workflow
 on:
-    repository_dispatch:
-        types: [package-master-pr-event]
+    workflow_dispatch:
+       
 
 # Jobs to be executed
 jobs:
