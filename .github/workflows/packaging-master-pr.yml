@@ -65,7 +65,7 @@ jobs:
 
             # Install new package in scratch org
             - name: Install new package version in scratch org
-              run: sfdx force:package:install -p dreamhouse_volta -w 10 -u sandeep.sankaye@tavant.voltapoc -r
+              run: sfdx force:package:install --p dreamhouse_volta  -u sandeep.sankaye@tavant.voltapoc 
 
             # Housekeeping
             - name: 'Delete scratch org'
