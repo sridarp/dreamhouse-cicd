@@ -41,7 +41,7 @@ jobs:
               id: createPackageVersion
               run: |
                   set +e
-                  json=$(sfdx force:package:create --name dreamhouse_volta --description "Volta Package" --packagetype Unlocked --path force-app --nonamespace --targetdevhubusername sandeep.sankaye@tavant.voltapoc)
+                  json=$(sfdx force:package:create --name dreamhouse_volta --description "Volta Package" --packagetype Unlocked --path force-app --nonamespace -x --targetdevhubusername sandeep.sankaye@tavant.voltapoc)
                   json=$(sfdx force:package:version:create -p dreamhouse_volta -d force-app --wait 10 -v sandeep.sankaye@tavant.voltapoc)
                   echo $json
                   status=$(echo $json | jq '.status')
