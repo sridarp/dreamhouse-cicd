@@ -41,17 +41,16 @@ jobs:
               id: createPackageVersion
               run: |
                   set +e
-                  #json=$(sfdx force:package:create --name dreamhouse_volta --description "Volta Package" --packagetype Unlocked --path force-app --nonamespace --installationkeybypass --targetdevhubusername sandeep.sankaye@tavant.voltapoc)
-                  json=$(sfdx force:package:version:create -p dreamhouse_volta -d force-app -k test1234 --wait 10 -v sandeep.sankaye@tavant.voltapoc)
+                  json=$(sfdx force:package:version:create -p dreamhouse_volta -x -w 20 -f config/project-scratch-def.json --json)
                   echo $json
                   status=$(echo $json | jq '.status')
-                    if [ $status == "0" ]; then
+                  if [ $status == "0" ]; then
                       packageVersionId=$(echo $json | jq -r '.result.SubscriberPackageVersionId')
                       echo "::set-output name=packageVersionId::$packageVersionId"
-                    else
+                  else
                       echo "sfdx force:package:version:create failed"
-                    fi
-                    exit $status
+                  fi
+                  exit $status
 
             # Wait for package replication
             - name: Wait for package replication
@@ -65,7 +64,7 @@ jobs:
 
             # Install new package in scratch org
             - name: Install new package version in scratch org
-              run: sfdx force:package:install --wait 10 --publishwait 10 --package dreamhouse_volta@0.1.1.NEXT -k test1234 -r -u scratch-org 
+              run: sfdx force:package:install -p ${{ steps.createPackageVersion.outputs.packageVersionId }} -w 10 -u scratch-org -r
 
             # Housekeeping
             - name: 'Delete scratch org'
