@@ -1,6 +1,15 @@
 # Unique name for this workflow
 name: Salesforce DX (scratch org)
 
+# Definition when the workflow should run
+on:
+    push:
+        branches:
+            - master
+        paths-ignore:
+            - 'sfdx-project.json'
+            - 'README.md'
+
 # Jobs to be executed
 jobs:
     formatting-and-linting:
@@ -20,7 +29,6 @@ jobs:
                   restore-keys: |
                       npm-${{ env.cache-name }}-
                       npm-
-
             # Install npm dependencies for Prettier and Jest
             - name: 'Install npm dependencies'
               if: steps.cache-npm.outputs.cache-hit != 'true'
@@ -48,15 +56,6 @@ jobs:
               with:
                   flags: LWC
 
-# Definition when the workflow should run
-on:
-    push:
-        branches:
-            - master
-        paths-ignore:
-            - 'sfdx-project.json'
-            - 'README.md'
-
     scratch-org-test:
         runs-on: ubuntu-latest
         needs: formatting-and-linting
@@ -68,7 +67,6 @@ on:
                   mkdir sfdx-cli
                   tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
                   ./sfdx-cli/install
-
             # Checkout the code in the pull request
             - name: 'Checkout source code'
               uses: actions/checkout@v2
@@ -133,7 +131,6 @@ on:
                       hasChanges='true'
                   fi
                   echo "::set-output name=hasChanges::$hasChanges"
-
             # Trigger Packaging workflow
             - name: 'Trigger Packaging workflow if needed'
               uses: peter-evans/repository-dispatch@v1.1.0
